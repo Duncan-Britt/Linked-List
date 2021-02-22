@@ -27,6 +27,31 @@ class LinkedList
     end
   end
 
+  def insert_at(value, index)
+    if index == 0
+      prepend(value)
+    else
+      node_after = self.at(index)
+      node_before = self.at(index-1)
+      new_node = Node.new(value)
+      node_before.next_node = new_node
+      new_node.next_node = node_after
+    end
+  end
+
+  def remove_at(index)
+    if index == 0
+      node = @head
+      @head = node.next_node
+    else
+      node_after = self.at(index+1)
+      node_before = self.at(index-1)
+      removed_node = self.at(index)
+      node_before.next_node = node_after
+      removed_node
+    end
+  end
+
   def size
     if @head
       node = head
@@ -135,12 +160,9 @@ p list.at(3).value
 
 puts "This list contains 'what'? : #{list.contains?('wha')}"
 puts list
+list.insert_at("of humans", 3)
+puts list
 
-p list.pop
-p list.pop
-p list.pop
-p list.pop
-p list.tail
-
+list.remove_at(3)
 puts list
 # spacer
